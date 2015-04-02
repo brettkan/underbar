@@ -294,6 +294,25 @@
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    // Puts all arguments except first into new array.
+    var argumentsArray = [];
+
+    _.each(arguments, function(item) {
+      argumentsArray.push(item);
+    });
+
+    argumentsArray.shift();
+
+    // For each object in new arguments array, iterates over each key-pair.
+    // Does not overwrite existing keys.
+    _.each(argumentsArray, function(value, index) {
+      _.each(argumentsArray[index], function(item, key) {
+        if (obj[key] === undefined) {
+          obj[key] = item;
+        }
+      });
+    });
+    return obj;
   };
 
 
