@@ -50,11 +50,14 @@
   // Note: _.each does not have a return value, but rather simply runs the
   // iterator function over each item in the input collection.
   _.each = function(collection, iterator) {
+    // For arrays
     if (Array.isArray(collection)) {
       for (var i = 0; i < collection.length; i++) {
         iterator(collection[i], i, collection);
       }
     }
+
+    // For objects
     else {
       for (var obj in collection) {
         iterator(collection[obj], obj, collection)
@@ -82,10 +85,12 @@
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
     var result = [];
+
     _.each(collection, function(item) {
       if(test(item))
         result.push(item);
     });
+
     return result;
   };
 
@@ -102,6 +107,7 @@
     
     var result = [];
     
+    // Executes if iterator is defined.
     if (iterator != undefined) {
       var iteratorArray = [];
 
@@ -115,6 +121,7 @@
       });
     }
 
+    // Executes if iterator isn't defined.
     else {
       _.each(array, function(item) {
         if (!(item in result)) result.push(item);
@@ -181,10 +188,12 @@
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
     
+    // Sets variables depending on if accumulator is defined or not.
     var hasAccumulator = accumulator != undefined;
     var result = hasAccumulator ? accumulator : collection[0];
     var toIterate = hasAccumulator ? collection : _.last(collection, collection.length - 1);
 
+    // Reduces based on variables which were set above.
     _.each(toIterate, function(item) {
       result = iterator(result, item)
     });
