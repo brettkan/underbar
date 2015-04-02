@@ -181,21 +181,13 @@
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
     
-    if (accumulator != undefined) {
-      var result = accumulator;
+    var hasAccumulator = accumulator != undefined;
+    var result = hasAccumulator ? accumulator : collection[0];
+    var toIterate = hasAccumulator ? collection : _.last(collection, collection.length - 1);
 
-      _.each(collection, function(item) {
-        result = iterator(result, item)
-      });
-    }
-
-    else {
-      var result = collection[0];
-
-      _.each(_.last(collection, collection.length - 1), function(item) {
-        result = iterator(result, item);
-      });
-    }
+    _.each(toIterate, function(item) {
+      result = iterator(result, item)
+    });
 
     return result;
   };
