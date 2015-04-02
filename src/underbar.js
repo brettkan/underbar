@@ -273,6 +273,22 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+    // Puts all arguments except first into new array.
+    var argumentsArray = [];
+
+    _.each(arguments, function(item) {
+      argumentsArray.push(item);
+    });
+
+    argumentsArray.shift();
+
+    // For each object in new arguments array, iterates over each key-pair.
+    _.each(argumentsArray, function(value, index) {
+      _.each(argumentsArray[index], function(item, key) {
+        obj[key] = item;
+      });
+    });
+    return obj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
