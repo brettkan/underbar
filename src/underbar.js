@@ -219,9 +219,7 @@
     // TIP: Try re-using reduce() here.
     // If iterator is undefined, will return item value.
     if (iterator == undefined) {
-      iterator = function(item) {
-        return item;
-      };
+      iterator = _.identity;
     }
 
     return _.reduce(collection, function(allTrue, item) {
@@ -241,6 +239,18 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    // If iterator is undefined, will return item value.
+    if (iterator == undefined) {
+      iterator = _.identity;
+    }
+
+    // If every case is false, then none are true, and this function should return false.
+    if (_.every(collection, function(item) { return !iterator(item) })) {
+      return false;
+    }
+    else {
+      return true;
+    }
   };
 
 
