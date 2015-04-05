@@ -360,13 +360,15 @@
     var result;
 
     return function() {
-      if (arguments in alreadyCalled) {
-        return alreadyCalled[arguments];
+      var key = arguments[0];
+
+      if (key in alreadyCalled) {
+        return alreadyCalled[key];
       }
 
       else {
         result = func.apply(this, arguments);
-        alreadyCalled[arguments] = result;
+        alreadyCalled[key] = result;
       }
 
       return result;
