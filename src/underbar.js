@@ -295,10 +295,8 @@
   // exists in obj
   _.defaults = function(obj) {
     // Puts all arguments except first into new array.
-    var argumentsArray = [];
-
-    _.each(arguments, function(item) {
-      argumentsArray.push(item);
+    var argumentsArray = _.map(arguments, function(item) {
+      return item;
     });
 
     argumentsArray.shift();
@@ -382,6 +380,17 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    // Puts all arguments except first two into new array.
+    var argArray = _.map(arguments, function(item) {
+      return item;
+    });
+
+    argArray.shift().shift();
+
+    // Puts all arguments except first into new array.
+    return function() {
+      func.apply(this, argArray);
+    }
   };
 
 
