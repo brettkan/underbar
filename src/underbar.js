@@ -385,12 +385,12 @@
       return item;
     });
 
-    argArray.shift().shift();
+    argArray.shift();
+    argArray.shift();
 
-    // Puts all arguments except first into new array.
-    return function() {
-      func.apply(this, argArray);
-    }
+    // Waits then passes func with arguments from argArray.
+    var result = func.apply(this, argArray);
+    return setTimeout(result, wait);
   };
 
 
