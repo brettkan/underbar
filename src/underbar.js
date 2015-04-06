@@ -389,8 +389,9 @@
     argArray.shift();
 
     // Waits then passes func with arguments from argArray.
-    var result = func.apply(this, argArray);
-    return setTimeout(result, wait);
+    return setTimeout(function() {
+      return func.apply(null, argArray);
+    }, wait);
   };
 
 
