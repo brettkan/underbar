@@ -406,6 +406,19 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    var orderArray = _.map(array, function(item) {
+      return Math.random();
+    });
+
+    var origOrderArray = orderArray.slice(0);
+    orderArray.sort();
+
+    var result = [];
+    _.each(orderArray, function(item, index) {
+      result[index] = array[_.indexOf(origOrderArray, item)];
+    });
+
+    return result;
   };
 
 
